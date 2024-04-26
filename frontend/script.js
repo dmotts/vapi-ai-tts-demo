@@ -1,6 +1,6 @@
 document.getElementById('convertBtn').addEventListener('click', function() {
   convertTextToSpeech();
-});
+});kl
 
 document.getElementById('textInput').addEventListener('keypress', function(event) {
   if (event.key === 'Enter') {
@@ -26,7 +26,7 @@ function convertTextToSpeech() {
     return;
   }
   showLoading(true);
-  fetch('http://localhost:5000/start-call', {
+  fetch('http://66.228.58.4:5000/start-call', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,0 +1,16 @@
+language = "python3"
+run = "cd backend && flask run --host=0.0.0.0 --port=3000"
+modules = ["python-3.10:v25-20230920-d4ad2e4"]
+
+[nix]
+channel = "stable-23_05"
+
+[unitTest]
+language = "python3"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[deployment]
+run = ["sh", "-c", "run = \"cd backend && flask run --host=0.0.0.0 --port=3000\""]
+deploymentTarget = "cloudrun"

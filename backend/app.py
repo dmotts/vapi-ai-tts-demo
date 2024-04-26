@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from vapi_python import Vapi
 
@@ -5,8 +6,7 @@ app = Flask(__name__)
 
 @app.route('/start-call', methods=['POST'])
 def start_call():
-    # Replace 'your-public-key' with your actual Vapi public key
-    vapi = Vapi(api_key='your-public-key')
+    vapi = Vapi(api_key=os.environ['VAPI_PUBLIC_KEY'])
     assistant = {
         'firstMessage': request.json['message'],
         'model': 'gpt-3.5-turbo',
