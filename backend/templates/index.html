@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vapi AI Voice Interaction</title>
+</head>
+<body>
+    <h1>Speak to Vapi AI Assistant</h1>
+    <button id="start">Start</button>
+    <button id="stop" disabled>Stop</button>
+
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+
+        document.getElementById('start').addEventListener('click', async () => {
+            document.getElementById('start').disabled = true;
+            document.getElementById('stop').disabled = false;
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+            mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, {type: 'audio/wav'});
+                const formData = new FormData();
+                formData.append('audio', audioBlob);
+                const response = await fetch('/process_audio', { method: 'POST', body: formData });
+                const data = await response.json();
+                console.log(data);
+                audioChunks = [];
+                document.getElementById('start').disabled = false;
+                document.getElementById('stop').disabled = true;
+            };
+        });
+
+        document.getElementById('stop').addEventListener('click', () => {
+            mediaRecorder.stop();
+        });
+    </script>
+</body>
+</html>
