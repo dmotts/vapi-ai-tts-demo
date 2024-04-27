@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, render_template
 from vapi_python import Vapi
 
@@ -12,7 +13,7 @@ def index():
 def process_audio():
     audio_file = request.files['audio'].read()
     # Assuming you've already set up Vapi with your key and appropriate configurations
-    vapi = Vapi(api_key='your-vapi-api-key')  # Replace with your actual Vapi API key
+    vapi = Vapi(api_key=os.environ(VAPI_AI_API_KEY))  # Replace with your actual Vapi API key
 
     # Simulated processing of audio file with Vapi AI (replace with actual API call handling)
     # Let's pretend we send the audio to Vapi and get a response
